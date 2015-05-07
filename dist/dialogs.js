@@ -201,4 +201,7 @@ angular.module('DialogsModule').service('Dialog', [ '$rootScope', '$modal', 'dia
 	}
 } ]);
 
+angular.module("DialogsModule").run(["$templateCache", function ($templateCache) {
+	$templateCache.put("bower_components/angular-dialog/views/template.html", "<fieldset><legend translate>{{title}}</legend><div translate>{{textContent}}</div><div compile=\"htmlContent\"></div><span ng-repeat=\"button in buttons\" ng-click=\"button.action(api)\" translate class=\"btn btn-primary pull-right\">{{button.title}}</span></fieldset>");
+}]);
 })();

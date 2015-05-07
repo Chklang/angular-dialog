@@ -60,5 +60,4 @@ gulp.task('templates', ['clean'], function(){
 	.pipe(gulp.dest('.tmp'));
 });
 
-gulp.task('default',['clean', 'lint','compress-js']);
-gulp.task('t',['clean', 'templates']);
+gulp.task('default',['clean', 'templates', 'lint','compress-js']);
