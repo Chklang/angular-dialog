@@ -123,7 +123,6 @@ angular.module('DialogsModule').service('Dialog', [ '$rootScope', '$modal', 'dia
 		lScope.htmlContent = lHtmlContent;
 		lScope.buttons = lButtons;
 		
-		console.log(lSubScope);
 		for (var lAttr in lSubScope) {
 			lScope[lAttr] = lSubScope[lAttr];
 		}
@@ -140,6 +139,7 @@ angular.module('DialogsModule').service('Dialog', [ '$rootScope', '$modal', 'dia
 					title : dialogConfig.textButtonClose,
 					action : function (pScope) {
 						pScope.close();
+						resolve(true);
 					}
 				}]
 			});
@@ -201,7 +201,4 @@ angular.module('DialogsModule').service('Dialog', [ '$rootScope', '$modal', 'dia
 	}
 } ]);
 
-angular.module("DialogsModule").run(["$templateCache", function ($templateCache) {
-	$templateCache.put("bower_components/angular-dialog/views/template.html", "<fieldset><legend translate>{{title}}</legend><div translate>{{textContent}}</div><div compile=\"htmlContent\"></div><span ng-repeat=\"button in buttons\" ng-click=\"button.action(api)\" translate class=\"btn btn-primary pull-right\">{{button.title}}</span></fieldset>");
-}]);
 })();
