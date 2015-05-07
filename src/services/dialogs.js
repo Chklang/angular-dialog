@@ -45,7 +45,6 @@ angular.module('DialogsModule').service('Dialog', [ '$rootScope', '$modal', 'dia
 		lScope.htmlContent = lHtmlContent;
 		lScope.buttons = lButtons;
 		
-		console.log(lSubScope);
 		for (var lAttr in lSubScope) {
 			lScope[lAttr] = lSubScope[lAttr];
 		}
@@ -62,6 +61,7 @@ angular.module('DialogsModule').service('Dialog', [ '$rootScope', '$modal', 'dia
 					title : dialogConfig.textButtonClose,
 					action : function (pScope) {
 						pScope.close();
+						resolve(true);
 					}
 				}]
 			});
