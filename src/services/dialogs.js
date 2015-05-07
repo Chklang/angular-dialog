@@ -9,6 +9,8 @@ angular.module('DialogsModule').service('Dialog', [ '$rootScope', '$modal', 'dia
 	var generateDefaultButtons = function () {
 		return [{
 			title : dialogConfig.textButtonClose,
+			onValid : true,
+			onDissmiss : true,
 			action : function (pScope) {
 				pScope.close();
 			}
@@ -49,6 +51,18 @@ angular.module('DialogsModule').service('Dialog', [ '$rootScope', '$modal', 'dia
 			lScope[lAttr] = lSubScope[lAttr];
 		}
 		
+		lModal.result.then(function () {
+			resolve(true);
+		}, function (pKey) {
+			angular.forEach(lScope.buttons, function (element) {
+				if (pKey == 'backdrop click' && element.onValid && element.action) {
+					element.action(lScope.api);
+				} else if (pKey == 'escape key press' && element.onDissmiss && element.action) {
+					element.action(lScope.api);
+				}
+			});
+		});
+		
 		return lScope;
 	};
 	
@@ -59,6 +73,8 @@ angular.module('DialogsModule').service('Dialog', [ '$rootScope', '$modal', 'dia
 				textContent : pMessage,
 				buttons : [{
 					title : dialogConfig.textButtonClose,
+					onValid : true,
+					onDissmiss : true,
 					action : function (pScope) {
 						pScope.close();
 						resolve(true);
@@ -75,12 +91,14 @@ angular.module('DialogsModule').service('Dialog', [ '$rootScope', '$modal', 'dia
 				textContent : pMessage,
 				buttons : [{
 					title : 'Ok',
+					onValid : true,
 					action : function (pScope) {
 						pScope.close();
 						resolve(true);
 					}
 				}, {
 					title : 'Cancel',
+					onDissmiss : true,
 					action : function (pScope) {
 						pScope.close();
 						reject(false);
@@ -103,12 +121,14 @@ angular.module('DialogsModule').service('Dialog', [ '$rootScope', '$modal', 'dia
 				},
 				buttons : [{
 					title : 'Ok',
+					onValid : true,
 					action : function (pScope) {
 						pScope.close();
 						resolve(pScope.value);
 					}
 				}, {
 					title : 'Cancel',
+					onDissmiss : true,
 					action : function (pScope) {
 						pScope.close();
 						reject(false);

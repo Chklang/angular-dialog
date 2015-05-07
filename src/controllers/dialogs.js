@@ -8,6 +8,6 @@ angular.module('DialogsModule').controller('DialogCtrl', [ '$scope', function Us
 	$scope.close = function () {
 		$scope.modal.dismiss();
 	};
-	
-	$scope.api = $scope;
+
+	$scope.__proto__.api = $scope;
 } ]);
